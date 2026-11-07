@@ -5,5 +5,6 @@ import Tx.com.DTO.bookingDTO;
 public interface OrderBookingService {
 	
 	public String  bookingProduct(bookingDTO bookingDTO);
+	public bookingDTO getBooking(short userId);
 
 }
