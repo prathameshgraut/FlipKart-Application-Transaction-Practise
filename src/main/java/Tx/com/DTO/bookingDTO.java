@@ -14,7 +14,14 @@ public class bookingDTO {
 	private short productQuantity;
 	private float productPrice;
 	private double paymentAmount;
+	private short UserId;
 
+	public short getUserId() {
+		return UserId;
+	}
+	public void setUserId(short userId) {
+		UserId = userId;
+	}
 	public String getFeedback() {
 		return feedback;
 	}

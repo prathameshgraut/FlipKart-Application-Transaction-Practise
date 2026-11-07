@@ -14,8 +14,15 @@ public class Product {
 	private String productName;
 	private short quantity;
 	private float price;
+	private short userId;
 	
 	
+	public short getUserId() {
+		return userId;
+	}
+	public void setUserId(short userId) {
+		this.userId = userId;
+	}
 	public short getId() {
 		return id;
 	}

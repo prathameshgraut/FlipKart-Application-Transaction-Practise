@@ -8,6 +8,7 @@ import Tx.com.Entity.Feedback;
 import Tx.com.Entity.Payment;
 import Tx.com.Entity.Product;
 import Tx.com.Entity.User;
+import Tx.com.Repository.feedbackRepo;
 import Tx.com.Repository.paymentRepo;
 import Tx.com.Repository.productRepo;
 import Tx.com.Repository.userRepo;
@@ -30,13 +31,16 @@ public class OrderBookingServiceImpl implements OrderBookingService{
 	@Autowired
 	feedbackService feedbackService;
 	
+	@Autowired
+	feedbackRepo feedbackRepo;
+	
 	@Override
 	@Transactional
 	public String bookingProduct(bookingDTO bookingDTO) {
 		User user = createUser(bookingDTO);
 		userRepo.save(user);
 		
-		Product product = createProduct(bookingDTO);
+		Product product = createProduct(bookingDTO,user);
 		productRepo.save(product);
 		
 		Payment payment = createPayment(bookingDTO, user, product);
@@ -68,11 +72,12 @@ public class OrderBookingServiceImpl implements OrderBookingService{
 		return payment;
 	}
 
-	private Product createProduct(bookingDTO bookingDTO) {
+	private Product createProduct(bookingDTO bookingDTO,User user) {
 		Product product = new Product();
 		product.setProductName(bookingDTO.getProductName());
 		product.setPrice(bookingDTO.getProductPrice());
 		product.setQuantity(bookingDTO.getProductQuantity());
+		product.setUserId(user.getId());
 		return product;
 	}
 
@@ -85,6 +90,36 @@ public class OrderBookingServiceImpl implements OrderBookingService{
 		user.setGender(bookingDTO.getUserGender());
 		user.setMobNo(bookingDTO.getUserMobNo());
 		return user;
+	}
+
+	@Override
+	public bookingDTO getBooking(short userId) {
+		
+		bookingDTO bookingDTO=new bookingDTO();
+		
+		User user = userRepo.findById(userId).orElseThrow(()-> new RuntimeException("User Not Found"));
+		bookingDTO.setUserName(user.getName());
+		bookingDTO.setUserAddrress(user.getAddrress());
+		bookingDTO.setUserEmail(user.getEmail());
+		bookingDTO.setUserGender(user.getGender());
+		bookingDTO.setUserAge(user.getAge());
+		bookingDTO.setUserMobNo(user.getMobNo());
+		
+		Payment payment= paymentRepo.findByUserId(userId).orElseThrow(()-> new RuntimeException("Payment Not Found"));
+		bookingDTO.setPaymentAmount(payment.getAmount());
+		
+		Product product = productRepo.findByUserId(userId).orElseThrow(()-> new RuntimeException("Product Not Found"));
+		bookingDTO.setProductName(product.getProductName());
+		bookingDTO.setProductPrice(product.getPrice());
+		bookingDTO.setProductQuantity(product.getQuantity());
+		bookingDTO.setUserId(product.getUserId());
+		
+		Feedback feedback = feedbackRepo.findByUserId(userId).orElseThrow(()-> new RuntimeException("User Not Found"));
+		bookingDTO.setFeedback(feedback.getFeedback());
+		bookingDTO.setRating(feedback.getRating());
+		bookingDTO.setUserId(feedback.getUserId());
+		
+		return bookingDTO;
 	}
 
 }

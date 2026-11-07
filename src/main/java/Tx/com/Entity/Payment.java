@@ -23,6 +23,7 @@ public class Payment {
 	@CreationTimestamp
 	private LocalDateTime orderTime;
 	
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private short paymentId;
 	private short userId;
 	
