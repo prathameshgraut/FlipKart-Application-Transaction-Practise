@@ -9,9 +9,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 
 @Entity
 public class Payment {
@@ -26,34 +23,49 @@ public class Payment {
 	@CreationTimestamp
 	private LocalDateTime orderTime;
 	
-	
+	private short paymentId;
+	private short userId;
 	
 	//Relational Mapping
-	@OneToMany
-	@JoinColumn(name = "user_id")
-	private User user;
+//	@ManyToMany
+//	@JoinColumn(name = "user_id")
+//	private User user;
+//
+//	@ManyToMany
+//	@JoinColumn(name = "product_id")
+//	private Product product;
 	
-	public Product getProduct() {
-		return product;
+//	public Product getProduct() {
+//		return product;
+//	}
+//	public void setProduct(Product product) {
+//		this.product = product;
+//	}
+
+	
+	
+	
+	public short getPaymentId() {
+		return paymentId;
 	}
-	public void setProduct(Product product) {
-		this.product = product;
+	public void setPaymentId(short paymentId) {
+		this.paymentId = paymentId;
 	}
-	@ManyToOne
-	@JoinColumn(name="product_id")
-	private Product product;
-	
-	
-	
+	public short getUserId() {
+		return userId;
+	}
+	public void setUserId(short userId) {
+		this.userId = userId;
+	}
 	public short getId() {
 		return id;
 	}
-	public User getUser() {
-		return user;
-	}
-	public void setUser(User user) {
-		this.user = user;
-	}
+//	public User getUser() {
+//		return user;
+//	}
+//	public void setUser(User user) {
+//		this.user = user; 
+//	}
 	public void setId(short id) {
 		this.id = id;
 	}

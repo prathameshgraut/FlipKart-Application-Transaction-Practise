@@ -13,8 +13,16 @@ public class Feedback {
 	private short id;
 	private String feedback;
 	private short rating;
+	private short userId;
 	
 	
+	
+	public Short getUserId() {
+		return userId;
+	}
+	public void setUserId(Short userId) {
+		this.userId = userId;
+	}
 	public short getId() {
 		return id;
 	}

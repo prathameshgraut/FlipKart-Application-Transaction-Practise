@@ -8,12 +8,25 @@ public class bookingDTO {
 	private long userMobNo;
 	private String userAddrress;
 	private char userGender;
-	
-	private double paymentAmount;
-	
+	private String feedback;
+	private short rating;
 	private String productName;
 	private short productQuantity;
 	private float productPrice;
+	private double paymentAmount;
+
+	public String getFeedback() {
+		return feedback;
+	}
+	public void setFeedback(String feedback) {
+		this.feedback = feedback;
+	}
+	public short getRating() {
+		return rating;
+	}
+	public void setRating(short rating) {
+		this.rating = rating;
+	}
 	public String getUserName() {
 		return userName;
 	}
